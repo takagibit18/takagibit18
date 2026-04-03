@@ -52,12 +52,11 @@
 
 ---
 
-## Contribution Snake
+## Contribution Graph
 
 <div align="center">
 
-<!-- Replace YOUR_USERNAME with your GitHub username after moving this file into your profile repository -->
-<img src="https://raw.githubusercontent.com/takagibit18/takagibit18/output/github-contribution-grid-snake-dark.svg" alt="contribution snake" />
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=takagibit18&theme=github-compact&hide_border=true&area=true&custom_title=Contribution%20Activity" alt="contribution activity graph" />
 
 </div>
 
@@ -65,11 +64,13 @@
 
 ## About Me
 
-- I am currently following a focused 3-month roadmap toward Agent Developer / LLM Application Engineer roles.
-- My core track is Python engineering, RAG pipeline design, and production-ready LLM service development.
-- I am practicing hybrid retrieval (BM25 + vector search), reranking, context compression, and RAG evaluation with measurable metrics.
-- I build with FastAPI, Docker, Redis, and structured testing to make LLM systems reliable, observable, and cost-aware.
-- I study Agent patterns (ReAct and Plan-and-Execute) and prioritize pragmatic tech decisions over over-engineering.
+- I completed a focused 3-month roadmap toward Agent Developer / LLM Application Engineer roles.
+- I now have hands-on proficiency in Python engineering, production-grade RAG pipelines, and LLM service delivery.
+- Core strengths include hybrid retrieval (BM25 + vector), reranking, context compression, and evaluation-driven optimization with clear metrics.
+- I can build reliable systems with FastAPI, Docker, Redis, structured testing, and cost-aware API orchestration.
+- I have practical experience with Agent design patterns such as ReAct and Plan-and-Execute, and I choose architectures based on task complexity and ROI.
+- I stay actively curious: I learn new tools quickly, validate ideas through rapid prototypes, and turn lessons into reusable engineering patterns.
+- I value disciplined iteration, clear technical documentation, and continuous improvement from feedback.
 
 ---
 
