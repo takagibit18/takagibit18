@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- Glassmorphism + neon style header -->
-<img src="https://capsule-render.vercel.app/api?type=waving&height=220&color=0:0f0c29,35:1f1b4d,70:302b63,100:0b1020&text=Sean%20Yu&fontColor=79c0ff&fontSize=56&animation=fadeIn&fontAlignY=36&desc=CS%20Student%20%7C%20Agent%20%26%20RAG%20Engineer&descAlignY=58&descSize=18" alt="header" />
+<img src="https://capsule-render.vercel.app/api?type=waving&height=220&color=0:0f0c29,35:1f1b4d,70:302b63,100:0b1020&text=Sean%20Yu&fontColor=79c0ff&fontSize=56&animation=fadeIn&fontAlignY=36&desc=CS%20Student%20%7C%20Agent%20and%20RAG%20Engineer&descAlignY=58&descSize=18" alt="header" />
 
 <h1>Sean Yu</h1>
 <p>
