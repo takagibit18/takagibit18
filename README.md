@@ -12,27 +12,22 @@
 
 ---
 
-## Neon Glass Identity
-
-<div align="center">
-
-![Theme](https://img.shields.io/badge/Theme-Glassmorphism%20%2B%20Dark%20Neon-0f172a?style=for-the-badge&logo=github&logoColor=58a6ff)
-![Focus](https://img.shields.io/badge/Focus-Web%20Engineering-1e293b?style=for-the-badge&logo=webflow&logoColor=79c0ff)
-![Language](https://img.shields.io/badge/Language-English-111827?style=for-the-badge&logo=googletranslate&logoColor=38bdf8)
-
-</div>
-
----
-
 ## Tech Stack
 
 <div align="center">
 
-![Next.js](https://img.shields.io/badge/Next.js-0B1220?style=for-the-badge&logo=nextdotjs&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-10203A?style=for-the-badge&logo=typescript&logoColor=2F74C0)
-![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-0F1E35?style=for-the-badge&logo=tailwindcss&logoColor=38BDF8)
-![React](https://img.shields.io/badge/React-09131F?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Node.js](https://img.shields.io/badge/Node.js-0F1A12?style=for-the-badge&logo=nodedotjs&logoColor=78C850)
+![Python](https://img.shields.io/badge/Python-111827?style=for-the-badge&logo=python&logoColor=F7DF1E)
+![FastAPI](https://img.shields.io/badge/FastAPI-0F172A?style=for-the-badge&logo=fastapi&logoColor=22D3EE)
+![LangChain](https://img.shields.io/badge/LangChain-0B1220?style=for-the-badge&logo=chainlink&logoColor=93C5FD)
+![LlamaIndex](https://img.shields.io/badge/LlamaIndex-0E1B2E?style=for-the-badge&logo=llama&logoColor=60A5FA)
+![RAG](https://img.shields.io/badge/RAG-Pipeline-10203A?style=for-the-badge&logo=readthedocs&logoColor=38BDF8)
+![Qdrant](https://img.shields.io/badge/Qdrant-111827?style=for-the-badge&logo=qdrant&logoColor=22C55E)
+![Chroma](https://img.shields.io/badge/Chroma-0F1E35?style=for-the-badge&logo=databricks&logoColor=A78BFA)
+![Redis](https://img.shields.io/badge/Redis-09131F?style=for-the-badge&logo=redis&logoColor=EF4444)
+![Docker](https://img.shields.io/badge/Docker-0F1A12?style=for-the-badge&logo=docker&logoColor=60A5FA)
+![OpenAI](https://img.shields.io/badge/OpenAI_API-111827?style=for-the-badge&logo=openai&logoColor=10B981)
+![Claude](https://img.shields.io/badge/Claude_API-1F2937?style=for-the-badge&logo=anthropic&logoColor=F59E0B)
+![Pytest](https://img.shields.io/badge/Pytest-0B1220?style=for-the-badge&logo=pytest&logoColor=FACC15)
 
 </div>
 
@@ -70,8 +65,11 @@
 
 ## About Me
 
-- I enjoy combining engineering reliability with visual storytelling to build expressive products.
-- I care about performance, maintainability, and real user impact.
+- I am currently following a focused 3-month roadmap toward Agent Developer / LLM Application Engineer roles.
+- My core track is Python engineering, RAG pipeline design, and production-ready LLM service development.
+- I am practicing hybrid retrieval (BM25 + vector search), reranking, context compression, and RAG evaluation with measurable metrics.
+- I build with FastAPI, Docker, Redis, and structured testing to make LLM systems reliable, observable, and cost-aware.
+- I study Agent patterns (ReAct and Plan-and-Execute) and prioritize pragmatic tech decisions over over-engineering.
 
 ---
 
