@@ -5,27 +5,26 @@
 
 <h1>Sean Yu</h1>
 <p>
-  <strong>CN:</strong> 计算机科学学习者，专注 LLM 应用与 Agent、RAG 与工程化落地<br/>
-  <strong>EN:</strong> CS learner focused on LLM apps, agents, RAG, and pragmatic engineering
+  CS learner focused on LLM apps, agents, RAG, and pragmatic engineering
 </p>
 
 </div>
 
 ---
 
-## Neon Glass Identity | 霓虹玻璃风格
+## Neon Glass Identity
 
 <div align="center">
 
 ![Theme](https://img.shields.io/badge/Theme-Glassmorphism%20%2B%20Dark%20Neon-0f172a?style=for-the-badge&logo=github&logoColor=58a6ff)
 ![Focus](https://img.shields.io/badge/Focus-Web%20Engineering-1e293b?style=for-the-badge&logo=webflow&logoColor=79c0ff)
-![Language](https://img.shields.io/badge/Language-%E4%B8%AD%E8%8B%B1%E5%8F%8C%E8%AF%AD-111827?style=for-the-badge&logo=googletranslate&logoColor=38bdf8)
+![Language](https://img.shields.io/badge/Language-English-111827?style=for-the-badge&logo=googletranslate&logoColor=38bdf8)
 
 </div>
 
 ---
 
-## Tech Stack | 技术栈
+## Tech Stack
 
 <div align="center">
 
@@ -39,20 +38,18 @@
 
 ---
 
-## Featured Projects | 精选项目
+## Featured Projects
 
 <table>
   <tr>
     <td width="50%">
       <h3>GitHub Homepage</h3>
-      <p><strong>CN:</strong> 基于 Next.js 的个人主页，采用玻璃拟态和贡献热力图展示。</p>
-      <p><strong>EN:</strong> A Next.js personal homepage with glassmorphism visuals and a contribution heatmap.</p>
+      <p>A Next.js personal homepage with glassmorphism visuals and a contribution heatmap.</p>
       <p>Stack: Next.js, TypeScript, Tailwind CSS</p>
     </td>
     <td width="50%">
       <h3>UI Motion Experiments</h3>
-      <p><strong>CN:</strong> 探索动画节奏、层次和交互反馈的前端实验。</p>
-      <p><strong>EN:</strong> Frontend experiments around motion rhythm, depth, and interaction feedback.</p>
+      <p>Frontend experiments around motion rhythm, depth, and interaction feedback.</p>
       <p>Stack: React, CSS, Framer Motion</p>
     </td>
   </tr>
@@ -60,29 +57,25 @@
 
 ---
 
-## Contribution Snake | 贡献蛇形动画
+## Contribution Snake
 
 <div align="center">
 
 <!-- Replace YOUR_USERNAME with your GitHub username after moving this file into your profile repository -->
-<img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_USERNAME/output/github-contribution-grid-snake-dark.svg" alt="contribution snake" />
+<img src="https://raw.githubusercontent.com/takagibit18/takagibit18/output/github-contribution-grid-snake-dark.svg" alt="contribution snake" />
 
 </div>
 
 ---
 
-## About Me | 关于我
+## About Me
 
-- CN: 热爱把工程实现和视觉设计结合，做出既稳定又有表达力的产品。
-- EN: I enjoy combining engineering reliability with visual storytelling to build expressive products.
-- CN: 关注性能、可维护性和真实用户体验。
-- EN: I care about performance, maintainability, and real user impact.
+- I enjoy combining engineering reliability with visual storytelling to build expressive products.
+- I care about performance, maintainability, and real user impact.
 
 ---
 
-## Notes | 使用说明
+## Notes
 
-- CN: 这是 Profile README 模板文件，可复制到你的同名账号仓库 README 使用。
-- EN: This is a Profile README template. Move/copy it into the README of your username repository.
-- CN: 目前不包含 website/app 跳转入口（按你的要求已移除）。
-- EN: Website/app jump entry is intentionally removed as requested.
+- This is a Profile README template. Move/copy it into the README of your username repository.
+- Website/app jump entry is intentionally removed as requested.
