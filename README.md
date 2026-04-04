@@ -35,20 +35,14 @@
 
 ## Featured Projects
 
-<table>
-  <tr>
-    <td width="50%">
-      <h3>GitHub Homepage</h3>
-      <p>A Next.js personal homepage with glassmorphism visuals and a contribution heatmap.</p>
-      <p>Stack: Next.js, TypeScript, Tailwind CSS</p>
-    </td>
-    <td width="50%">
-      <h3>UI Motion Experiments</h3>
-      <p>Frontend experiments around motion rhythm, depth, and interaction feedback.</p>
-      <p>Stack: React, CSS, Framer Motion</p>
-    </td>
-  </tr>
-</table>
+<p align="left">
+  <a href="https://github.com/takagibit18/2026Agent">
+    <img width="420" src="https://denvercoder1-github-readme-stats.vercel.app/api/pin/?username=YOUR_USERNAME&repo=YOUR_PROJECT_ONE&theme=react&bg_color=1F222E&title_color=79c0ff&hide_border=true&icon_color=58a6ff&show_icons=true&show_description=true" alt="Project One" />
+  </a>
+  <a href="https://github.com/takagibit18/async_test">
+    <img width="420" src="https://denvercoder1-github-readme-stats.vercel.app/api/pin/?username=YOUR_USERNAME&repo=YOUR_PROJECT_TWO&theme=react&bg_color=1F222E&title_color=79c0ff&hide_border=true&icon_color=58a6ff&show_icons=true&show_description=true" alt="Project Two" />
+  </a>
+</p>
 
 ---
 
@@ -73,8 +67,3 @@
 - I value disciplined iteration, clear technical documentation, and continuous improvement from feedback.
 
 ---
-
-## Notes
-
-- This is a Profile README template. Move/copy it into the README of your username repository.
-- Website/app jump entry is intentionally removed as requested.
