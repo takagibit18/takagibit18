@@ -1,11 +1,8 @@
 <div align="center">
 
 <!-- Glassmorphism + neon style header -->
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://capsule-render.vercel.app/api?type=waving&height=220&color=0:0f0c29,35:1f1b4d,70:302b63,100:0b1020&text=Sean%20Yu&fontColor=79c0ff&fontSize=56&animation=fadeIn&fontAlignY=36&desc=CS%20Student%20%7C%20Agent%20and%20RAG%20Engineer&descAlignY=58&descSize=18" />
-  <source media="(prefers-color-scheme: light)" srcset="https://capsule-render.vercel.app/api?type=waving&height=220&color=0:f8fafc,45:e2e8f0,100:cbd5e1&text=Sean%20Yu&fontColor=0f172a&fontSize=56&animation=fadeIn&fontAlignY=36&desc=CS%20Student%20%7C%20Agent%20and%20RAG%20Engineer&descAlignY=58&descSize=18&descColor=334155" />
-  <img src="https://capsule-render.vercel.app/api?type=waving&height=220&color=0:0f0c29,35:1f1b4d,70:302b63,100:0b1020&text=Sean%20Yu&fontColor=79c0ff&fontSize=56&animation=fadeIn&fontAlignY=36&desc=CS%20Student%20%7C%20Agent%20and%20RAG%20Engineer&descAlignY=58&descSize=18" alt="header" />
-</picture>
+<img src="https://capsule-render.vercel.app/api?type=waving&height=220&color=0:0f0c29,35:1f1b4d,70:302b63,100:0b1020&text=Sean%20Yu&fontColor=79c0ff&fontSize=56&animation=fadeIn&fontAlignY=36&desc=CS%20Student%20%7C%20Agent%20and%20RAG%20Engineer&descAlignY=58&descSize=18#gh-dark-mode-only" alt="header-dark" />
+<img src="https://capsule-render.vercel.app/api?type=waving&height=220&color=0:f8fafc,45:e2e8f0,100:cbd5e1&text=Sean%20Yu&fontColor=0f172a&fontSize=56&animation=fadeIn&fontAlignY=36&desc=CS%20Student%20%7C%20Agent%20and%20RAG%20Engineer&descAlignY=58&descSize=18&descColor=334155#gh-light-mode-only" alt="header-light" />
 
 <h1>Sean Yu</h1>
 <p>
