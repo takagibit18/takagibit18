@@ -6,7 +6,7 @@
 <h1>Sean Yu</h1>
 <p>
   CS learner focused on LLM apps, agents, RAG, and pragmatic engineering
-</p>
+</p>  
 
 </div>
 
@@ -36,11 +36,11 @@
 ## Featured Projects
 
 <p align="left">
-  <a href="https://github.com/takagibit18/2026Agent">
-    <img width="420" src="https://denvercoder1-github-readme-stats.vercel.app/api/pin/?username=YOUR_USERNAME&repo=YOUR_PROJECT_ONE&theme=react&bg_color=1F222E&title_color=79c0ff&hide_border=true&icon_color=58a6ff&show_icons=true&show_description=true" alt="Project One" />
+  <a href="https://github.com/takagibit18/review-debug-agent">
+    <img width="420" src="https://denvercoder1-github-readme-stats.vercel.app/api/pin/?username=takagibit18&repo=review-debug-agent&theme=react&bg_color=1F222E&title_color=79c0ff&hide_border=true&icon_color=58a6ff&show_icons=true&show_description=true" alt="review-debug-agent" />
   </a>
-  <a href="https://github.com/takagibit18/async_test">
-    <img width="420" src="https://denvercoder1-github-readme-stats.vercel.app/api/pin/?username=YOUR_USERNAME&repo=YOUR_PROJECT_TWO&theme=react&bg_color=1F222E&title_color=79c0ff&hide_border=true&icon_color=58a6ff&show_icons=true&show_description=true" alt="Project Two" />
+  <a href="https://github.com/takagibit18/2026Agent">
+    <img width="420" src="https://denvercoder1-github-readme-stats.vercel.app/api/pin/?username=takagibit18&repo=2026Agent&theme=react&bg_color=1F222E&title_color=79c0ff&hide_border=true&icon_color=58a6ff&show_icons=true&show_description=true" alt="2026Agent" />
   </a>
 </p>
 
