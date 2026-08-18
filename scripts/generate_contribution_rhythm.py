@@ -1,17 +1,20 @@
 """
-Generate a warm editorial-style contribution heatmap for the GitHub profile README.
+Generate the warm editorial-style contribution heatmap used by the profile README.
+
+The visual style is fixed here; the actual cells, dates, month labels, and intensity
+are generated from GitHub's real contribution data on every run.
 
 Usage:
-  GH_TOKEN=... python scripts/generate_contribution_rhythm.py --user takagibit18
+    GH_TOKEN=... python scripts/generate_contribution_rhythm.py --user takagibit18
 
-This writes:
-  assets/contribution-rhythm.png
+Output:
+    assets/contribution-rhythm.png
 """
 
 from __future__ import annotations
+
 import argparse
 import datetime as dt
-import math
 import os
 from pathlib import Path
 
@@ -26,6 +29,7 @@ query($login: String!, $from: DateTime!, $to: DateTime!) {
   user(login: $login) {
     contributionsCollection(from: $from, to: $to) {
       contributionCalendar {
+        totalContributions
         weeks {
           contributionDays {
             contributionCount
@@ -39,134 +43,240 @@ query($login: String!, $from: DateTime!, $to: DateTime!) {
 }
 """
 
-def font(candidates, size):
-    for name in candidates:
+PALETTE = ["#efe7db", "#e5dac7", "#d6c7aa", "#b9aa79", "#978b57", "#6f6635"]
+
+
+def load_font(candidates: list[str], size: int):
+    for candidate in candidates:
         try:
-            return ImageFont.truetype(name, size=size)
+            return ImageFont.truetype(candidate, size=size)
         except Exception:
-            pass
+            continue
     return ImageFont.load_default()
 
+
 def fetch_contributions(user: str, token: str):
-    to_date = dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
-    from_date = (dt.datetime.utcnow() - dt.timedelta(days=365)).replace(microsecond=0).isoformat() + "Z"
-    r = requests.post(
+    now = dt.datetime.now(dt.timezone.utc)
+    start = now - dt.timedelta(days=364)
+
+    response = requests.post(
         "https://api.github.com/graphql",
-        headers={"Authorization": f"Bearer {token}"},
-        json={"query": QUERY, "variables": {"login": user, "from": from_date, "to": to_date}},
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28",
+        },
+        json={
+            "query": QUERY,
+            "variables": {
+                "login": user,
+                "from": start.replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+                "to": now.replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+            },
+        },
         timeout=30,
     )
-    r.raise_for_status()
-    payload = r.json()
-    if "errors" in payload:
-        raise RuntimeError(payload["errors"])
-    weeks = payload["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
-    # normalize to Monday-first rows
-    cols = []
-    for week in weeks:
-        days = week["contributionDays"]
-        day_map = {d["weekday"]: d["contributionCount"] for d in days}  # Sun=0 .. Sat=6
-        monday_first = [day_map.get(i % 7, 0) for i in range(1,7)] + [day_map.get(0, 0)]
-        cols.append(monday_first)
-    return cols
+    response.raise_for_status()
+    payload = response.json()
 
-def level(count, max_count):
+    if payload.get("errors"):
+        raise RuntimeError(payload["errors"])
+
+    user_data = payload.get("data", {}).get("user")
+    if not user_data:
+        raise RuntimeError(f"GitHub user not found: {user}")
+
+    calendar = user_data["contributionsCollection"]["contributionCalendar"]
+    weeks = calendar["weeks"]
+
+    # Preserve the actual date for every cell.
+    columns = []
+    for week in weeks:
+        column = [None] * 7  # Monday first
+        for day in week["contributionDays"]:
+            github_weekday = int(day["weekday"])  # Sunday=0 ... Saturday=6
+            monday_index = (github_weekday - 1) % 7
+            column[monday_index] = {
+                "date": dt.date.fromisoformat(day["date"]),
+                "count": int(day["contributionCount"]),
+            }
+        columns.append(column)
+
+    return columns, int(calendar["totalContributions"])
+
+
+def intensity_levels(columns):
+    positive_counts = sorted(
+        cell["count"]
+        for col in columns
+        for cell in col
+        if cell is not None and cell["count"] > 0
+    )
+    if not positive_counts:
+        return [1, 2, 3, 4]
+
+    def percentile(p: float) -> int:
+        idx = round((len(positive_counts) - 1) * p)
+        return positive_counts[max(0, min(idx, len(positive_counts) - 1))]
+
+    thresholds = [
+        max(1, percentile(0.25)),
+        max(1, percentile(0.50)),
+        max(1, percentile(0.75)),
+        max(1, percentile(0.90)),
+    ]
+
+    # Ensure strict non-decreasing thresholds even on sparse calendars.
+    for i in range(1, len(thresholds)):
+        thresholds[i] = max(thresholds[i], thresholds[i - 1])
+    return thresholds
+
+
+def level_for_count(count: int, thresholds: list[int]) -> int:
     if count <= 0:
         return 0
-    steps = [0.08, 0.22, 0.42, 0.68, 1.0]
-    ratio = count / max(max_count, 1)
-    for i, s in enumerate(steps, start=1):
-        if ratio <= s:
-            return i
+    if count <= thresholds[0]:
+        return 1
+    if count <= thresholds[1]:
+        return 2
+    if count <= thresholds[2]:
+        return 3
+    if count <= thresholds[3]:
+        return 4
     return 5
 
-def render(cols):
-    W, H = 1800, 720
-    img = Image.new("RGB", (W, H), "#f6f2eb")
-    draw = ImageDraw.Draw(img)
 
-    title_font = font([
+def month_markers(columns):
+    """Return (column_index, short_month, year) where a new month begins."""
+    markers = []
+    previous_month = None
+
+    for col_idx, col in enumerate(columns):
+        dated_cells = [cell for cell in col if cell is not None]
+        if not dated_cells:
+            continue
+
+        # Choose the earliest real date present in the week.
+        first_date = min(cell["date"] for cell in dated_cells)
+        month_key = (first_date.year, first_date.month)
+
+        if month_key != previous_month:
+            markers.append((col_idx, first_date.strftime("%b"), first_date.year))
+            previous_month = month_key
+
+    # Avoid crowded labels when a month begins in consecutive very narrow positions.
+    filtered = []
+    last_idx = -99
+    for marker in markers:
+        if marker[0] - last_idx >= 3:
+            filtered.append(marker)
+            last_idx = marker[0]
+    return filtered
+
+
+def render(columns, total_contributions: int, user: str):
+    W, H = 1800, 720
+    image = Image.new("RGB", (W, H), "#f6f2eb")
+    draw = ImageDraw.Draw(image)
+
+    title_font = load_font([
         "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
-        "/usr/share/fonts/truetype/liberation2/LiberationSerif-Regular.ttf"], 54)
-    subtitle_font = font([
+        "/usr/share/fonts/truetype/liberation2/LiberationSerif-Regular.ttf",
+    ], 54)
+    subtitle_font = load_font([
         "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
-        "/usr/share/fonts/truetype/liberation2/LiberationSerif-Regular.ttf"], 24)
-    month_font = font([
+        "/usr/share/fonts/truetype/liberation2/LiberationSerif-Regular.ttf",
+    ], 24)
+    month_font = load_font([
         "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
-        "/usr/share/fonts/truetype/liberation2/LiberationSerif-Regular.ttf"], 16)
-    small_font = font([
+        "/usr/share/fonts/truetype/liberation2/LiberationSerif-Regular.ttf",
+    ], 16)
+    small_font = load_font([
         "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
-        "/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf"], 15)
-    caption_font = font([
+        "/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf",
+    ], 15)
+    caption_font = load_font([
         "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Italic.ttf",
-        "/usr/share/fonts/truetype/liberation2/LiberationSerif-Italic.ttf"], 28)
+        "/usr/share/fonts/truetype/liberation2/LiberationSerif-Italic.ttf",
+    ], 28)
 
     ink = "#2c2a27"
     muted = "#a38f72"
     line = "#ddd3c5"
-    palette = ["#efe7db", "#e5dac7", "#d6c7aa", "#b9aa79", "#978b57", "#6f6635"]
 
-    draw.text((W//2, 60), "✦", font=subtitle_font, fill=muted, anchor="mm")
-    draw.text((W//2, 140), "CONTRIBUTION RHYTHM", font=title_font, fill=ink, anchor="mm")
-    draw.line((W//2-220, 196, W//2-120, 196), fill=line, width=2)
-    draw.line((W//2+120, 196, W//2+220, 196), fill=line, width=2)
-    draw.text((W//2, 196), "LAST 365 DAYS", font=subtitle_font, fill=muted, anchor="mm")
+    draw.text((W // 2, 60), "✦", font=subtitle_font, fill=muted, anchor="mm")
+    draw.text((W // 2, 140), "CONTRIBUTION RHYTHM", font=title_font, fill=ink, anchor="mm")
+    draw.line((W // 2 - 220, 196, W // 2 - 120, 196), fill=line, width=2)
+    draw.line((W // 2 + 120, 196, W // 2 + 220, 196), fill=line, width=2)
+    draw.text((W // 2, 196), "LAST 365 DAYS", font=subtitle_font, fill=muted, anchor="mm")
 
-    grid_left = 260
+    grid_left = 250
     grid_top = 300
     cell = 22
     gap = 6
     rows = 7
-    grid_width = len(cols)*cell + (len(cols)-1)*gap
-    grid_height = rows*cell + (rows-1)*gap
+    grid_height = rows * cell + (rows - 1) * gap
 
-    days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
-    for i, d in enumerate(days):
-        y = grid_top + i*(cell+gap) + cell/2
-        draw.text((150, y), d, font=small_font, fill="#5a5145", anchor="lm")
+    weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    for row, name in enumerate(weekdays):
+        y = grid_top + row * (cell + gap) + cell / 2
+        draw.text((145, y), name, font=small_font, fill="#5a5145", anchor="lm")
 
-    month_names = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
-    month_positions = [0, 4, 8, 12, 17, 21, 25, 29, 33, 38, 43, 48]
-    for m, pos in zip(month_names, month_positions):
-        x = grid_left + pos*(cell+gap) + 10
-        draw.text((x, grid_top-48), m, font=month_font, fill="#4b4135", anchor="mm")
-        draw.line((x, grid_top-20, x, grid_top-4), fill=line, width=1)
+    for col_idx, label, year in month_markers(columns):
+        x = grid_left + col_idx * (cell + gap) + cell / 2
+        draw.text((x, grid_top - 48), label, font=month_font, fill="#4b4135", anchor="mm")
+        draw.line((x, grid_top - 20, x, grid_top - 4), fill=line, width=1)
 
-    max_count = max(max(col) for col in cols) if cols else 1
-    for c, col in enumerate(cols):
-        for r, count in enumerate(col):
-            x0 = grid_left + c*(cell+gap)
-            y0 = grid_top + r*(cell+gap)
+    thresholds = intensity_levels(columns)
+    for col_idx, col in enumerate(columns):
+        for row, cell_data in enumerate(col):
+            if cell_data is None:
+                continue
+            x0 = grid_left + col_idx * (cell + gap)
+            y0 = grid_top + row * (cell + gap)
             x1 = x0 + cell
             y1 = y0 + cell
-            color = palette[level(count, max_count)]
+            color = PALETTE[level_for_count(cell_data["count"], thresholds)]
             draw.rounded_rectangle((x0, y0, x1, y1), radius=5, fill=color)
 
     legend_y = grid_top + grid_height + 62
-    legend_x = W//2 - 120
-    draw.text((legend_x-40, legend_y+11), "Less", font=subtitle_font, fill="#4f463c", anchor="rm")
-    for i, color in enumerate(palette):
-        x = legend_x + i*(cell+12)
-        draw.rounded_rectangle((x, legend_y, x+cell+10, legend_y+18), radius=6, fill=color)
-    draw.text((legend_x + 6*(cell+12) + 40, legend_y+11), "More", font=subtitle_font, fill="#4f463c", anchor="lm")
+    legend_x = W // 2 - 135
+    draw.text((legend_x - 42, legend_y + 10), "Less", font=subtitle_font, fill="#4f463c", anchor="rm")
+    for i, color in enumerate(PALETTE):
+        x = legend_x + i * (cell + 12)
+        draw.rounded_rectangle((x, legend_y, x + cell + 10, legend_y + 18), radius=6, fill=color)
+    draw.text((legend_x + 6 * (cell + 12) + 35, legend_y + 10), "More", font=subtitle_font, fill="#4f463c", anchor="lm")
 
-    cap_y = legend_y + 118
-    draw.line((190, cap_y, 610, cap_y), fill=line, width=2)
-    draw.line((1190, cap_y, 1610, cap_y), fill=line, width=2)
-    draw.text((W//2, cap_y), "quiet work, consistently.", font=caption_font, fill="#5e4f3b", anchor="mm")
-    draw.text((W//2, cap_y-35), "✦", font=subtitle_font, fill=muted, anchor="mm")
-    return img
+    # Real aggregate metadata, also regenerated daily.
+    draw.text(
+        (W // 2, legend_y + 58),
+        f"{total_contributions:,} contributions · @{user}",
+        font=small_font,
+        fill="#8c7b63",
+        anchor="mm",
+    )
+
+    caption_y = legend_y + 122
+    draw.line((190, caption_y, 610, caption_y), fill=line, width=2)
+    draw.line((1190, caption_y, 1610, caption_y), fill=line, width=2)
+    draw.text((W // 2, caption_y), "quiet work, consistently.", font=caption_font, fill="#5e4f3b", anchor="mm")
+
+    return image
+
 
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--user", required=True)
-    args = ap.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--user", required=True)
+    args = parser.parse_args()
+
     token = os.environ["GH_TOKEN"]
-    cols = fetch_contributions(args.user, token)
-    img = render(cols)
+    columns, total = fetch_contributions(args.user, token)
+    image = render(columns, total, args.user)
+
     ASSET_PATH.parent.mkdir(parents=True, exist_ok=True)
-    img.save(ASSET_PATH, quality=95)
+    image.save(ASSET_PATH, format="PNG", optimize=True)
     print(f"Wrote {ASSET_PATH}")
+
 
 if __name__ == "__main__":
     main()
