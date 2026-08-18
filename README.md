@@ -41,6 +41,14 @@ Pipeline-first AI Resume Ops system that turns multiple job descriptions into an
 
 <br>
 
+## Contribution Rhythm
+
+<p align="center">
+  <img src="./assets/contribution-rhythm.png" alt="Contribution Rhythm — Last 365 Days" width="100%" />
+</p>
+
+<br>
+
 ## Retrieval Evaluation
 
 > **Evaluation before architecture.**  
