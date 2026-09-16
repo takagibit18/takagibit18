@@ -1,0 +1,16 @@
+{
+  "checks": [
+    "Unavailable data is shown as unknown, not zero; 365 disabled date cells.",
+    "Demo mode explicitly labeled and isolated from real-data view.",
+    "Hover tooltip shows the selected date and exact fixture count.",
+    "Pin, persistent detail panel, and Escape clear work.",
+    "Roving keyboard navigation, previous week/day, and End are correct.",
+    "Pause/resume and replay controls work.",
+    "Light theme renders and switches.",
+    "Reduced-motion disables animations and replay.",
+    "Leaving demo restores unavailable production state without fake numbers.",
+    "390px mobile: tap-to-pin, readable cells, internal horizontal scroll, no body overflow.",
+    "No browser page errors in tested desktop and mobile states."
+  ],
+  "pageErrors": []
+}

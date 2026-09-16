@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Sean Yu — agent engineering, selected projects, and an interactive contribution calendar.">
+  <meta name="color-scheme" content="dark light">
+  <title>Sean Yu · Contribution Rhythm</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230e141a'/%3E%3Ctext x='8' y='24' fill='%23b8c99a' font-size='23' font-family='Arial'%3ES%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#rhythm">Skip to contribution calendar</a>
+<div class="shell">
+  <header class="topbar">
+    <a class="wordmark" href="https://github.com/takagibit18"><span class="brand-mark" aria-hidden="true">s.</span> Sean Yu <span class="wordmark-note">/ BUILD LOG</span></a>
+    <div class="topbar-actions"><a class="external-link" href="https://github.com/takagibit18">GitHub <span aria-hidden="true">↗</span></a><button type="button" id="themeButton" class="icon-button" aria-label="Switch to light theme">◐</button></div>
+  </header>
+
+  <section class="hero" aria-labelledby="name">
+    <div class="hero-copy">
+      <p class="eyebrow">AGENT / LLM ENGINEERING</p>
+      <h1 id="name">Sean Yu<span class="name-dot">.</span></h1>
+      <p class="hero-statement">Agents, shipped for real.</p>
+      <p class="hero-process"><span aria-hidden="true"></span> BUILD <b>/</b> EVALUATE <b>/</b> ITERATE</p>
+    </div>
+  </section>
+
+  <main>
+    <section class="activity" id="rhythm" aria-labelledby="rhythmTitle">
+      <div class="section-title-row">
+        <div><p class="eyebrow section-kicker">01 / THE PRACTICE</p><h2 id="rhythmTitle">Contribution rhythm<span>.</span></h2></div>
+        <p class="section-caption">Quiet work, consistently.</p>
+      </div>
+      <div class="calendar-card">
+        <div class="calendar-toolbar">
+          <div class="data-meta"><span class="state-badge" id="dataBadge">AWAITING SYNC</span><span id="period" class="period">Last 365 days</span></div>
+          <div class="motion-tools"><button id="motionButton" class="quiet-button" type="button" aria-pressed="false">Pause motion</button><button id="replayButton" class="quiet-button" type="button">Replay</button></div>
+        </div>
+        <p id="dataNotice" class="data-notice">No live contribution data is included yet. Run the update workflow to load it.</p>
+        <div class="calendar-wrap" id="calendarWrap" tabindex="-1">
+          <div class="calendar-inner" id="calendarInner">
+            <div class="month-labels" id="monthLabels" aria-hidden="true"></div>
+            <div class="weekdays" aria-hidden="true"><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span><span></span></div>
+            <div class="day-grid" id="dayGrid" role="group" aria-label="Daily contributions. Use arrow keys to move, Enter to pin a day, and Escape to clear the selection."></div>
+          </div>
+        </div>
+        <div class="calendar-key-row">
+          <p class="interaction-hint" id="interactionHint">Hover to explore · click to pin</p>
+          <div class="legend" aria-label="Contribution intensity, from less to more"><span>Less</span><i data-level="0"></i><i data-level="1"></i><i data-level="2"></i><i data-level="3"></i><i data-level="4"></i><span>More</span></div>
+        </div>
+        <div class="calendar-bottom">
+          <div class="totals" id="totals"><div><strong id="totalValue">—</strong><span id="totalLabel">contributions</span></div><div><strong id="activeValue">—</strong><span>active days</span></div></div>
+          <div class="day-detail" id="dayDetail" aria-live="polite"><div><span id="detailDate" class="detail-date">Every day has a story.</span><strong id="detailCount">Choose a square to read it.</strong></div><button id="clearButton" class="quiet-button" type="button" hidden>Unpin ×</button></div>
+        </div>
+      </div>
+      <div class="source-row"><p id="sourceNote">GitHub contribution calendar · awaiting first sync</p><button class="text-button" id="demoButton" type="button">Try interaction demo ↗</button></div>
+      <details class="data-details"><summary>Data notes & accessible day list</summary><p id="methodNote">Missing data is not the same as zero activity. No values are estimated.</p><div id="dayList" class="day-list"></div></details>
+    </section>
+
+    <section class="work" aria-labelledby="workTitle">
+      <div class="section-title-row"><div><p class="eyebrow section-kicker">02 / SELECTED ENGINEERING</p><h2 id="workTitle">Built, not just imagined<span>.</span></h2></div></div>
+      <div class="projects">
+        <a class="project" href="https://github.com/takagibit18/MergeWarden"><div class="project-top"><span class="project-category">AI PR REVIEW AGENT</span><span class="project-arrow" aria-hidden="true">↗</span></div><h3>MergeWarden</h3><p>Advisory PR review for behavioral regressions, engineering risks and the test gaps CI can miss.</p><div class="project-stack">Python <span>·</span> FastAPI <span>·</span> Evaluation</div></a>
+        <a class="project" href="https://github.com/takagibit18/shotgunCV"><div class="project-top"><span class="project-category">AI RESUME OPS</span><span class="project-arrow" aria-hidden="true">↗</span></div><h3>ShotgunCV</h3><p>From multiple job descriptions to tailored resumes, role scoring and an application strategy.</p><div class="project-stack">Python <span>·</span> Structured output <span>·</span> CLI</div></a>
+      </div>
+    </section>
+  </main>
+  <footer><span>BUILD / EVALUATE / ITERATE</span><a href="https://github.com/takagibit18">@takagibit18 ↗</a></footer>
+</div>
+<div id="tooltip" class="tooltip" role="tooltip" hidden><span id="tooltipDate"></span><strong id="tooltipCount"></strong><small id="tooltipMeta"></small></div>
+<noscript><div class="noscript">JavaScript is disabled. The interactive controls need JavaScript. <a href="https://github.com/takagibit18">View the original GitHub profile</a>.</div></noscript>
+<script src="data.js"></script>
+<script src="demo-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
