@@ -55,25 +55,13 @@ AI-native resume pipeline that turns multiple job descriptions into role analysi
 <p align="center">
   <a href="https://github.com/takagibit18?tab=overview">
     <picture>
-      <source media="(max-width: 600px) and (prefers-color-scheme: dark) and (prefers-reduced-motion: reduce)" srcset="./assets/contribution-rhythm-dark-mobile-still.svg" />
-      <source media="(max-width: 600px) and (prefers-reduced-motion: reduce)" srcset="./assets/contribution-rhythm-light-mobile-still.svg" />
-      <source media="(prefers-color-scheme: dark) and (prefers-reduced-motion: reduce)" srcset="./assets/contribution-rhythm-dark-still.svg" />
-      <source media="(prefers-reduced-motion: reduce)" srcset="./assets/contribution-rhythm-light-still.svg" />
-      <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="./assets/contribution-rhythm-dark-mobile.svg" />
-      <source media="(max-width: 600px)" srcset="./assets/contribution-rhythm-light-mobile.svg" />
-      <source media="(prefers-color-scheme: dark)" srcset="./assets/contribution-rhythm-dark.svg" />
-      <img src="./assets/contribution-rhythm-light.svg" alt="Daily GitHub contribution calendar. Scheduled data refresh; animation does not alter contribution counts. View the original GitHub calendar for day details." width="100%" />
+      <source media="(prefers-color-scheme: dark)" srcset="./assets/contribution-snake-dark.svg" />
+      <img src="./assets/contribution-snake-light.svg" alt="An animated snake eats the squares in my GitHub contribution calendar." width="100%" />
     </picture>
   </a>
 </p>
 
-<sub>Quiet work, consistently. · Animated preview · Daily snapshot, not a live feed</sub>
-
-<!-- After GitHub Pages is deployed, replace the image link above with the URL shown
-     in Settings > Pages. This is the default project-site URL, NOT a verified live URL:
-     https://takagibit18.github.io/takagibit18/
-     You can then add: [Explore day by day ↗](https://takagibit18.github.io/takagibit18/)
-     The README image itself cannot provide custom per-cell tooltips. -->
+<sub>Quiet work, consistently. · A year of contributions, one bite at a time · Refreshed daily</sub>
 
 <br>
 
